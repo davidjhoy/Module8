@@ -1,5 +1,6 @@
 import java.io.*;
 import java.net.*;
+import java.util.ArrayList;
 public class Text {
     // Write a program that will display lines of a text you specify. 
     // It should take two arguments: a file or a URL and the number of lines to display. 
@@ -36,6 +37,24 @@ public class Text {
                         
                     }
                 } else if (direction < 0){
+                    //For this I can use an arraylist or array to keep track of the last ten lines that have been read. When I reach the end of the file, the I just print from the array in order. 
+                    ArrayList<String> al = new ArrayList<String>();
+                    while((input = br.readLine()) != null){
+
+                        //Make sure we keep track of the size of the arraylist and only store a max of "direction" values
+                        if (al.size() < Math.abs(direction)){
+                            al.add(0, input);
+                        }else{
+                            al.remove(al.size()-1);
+                            al.add(0, input);
+
+                        }
+                        
+                    }
+                    for(String st : al){
+                        pw.println(st);
+                    }
+
 
                 }else{
                     while ((input = br.readLine()) != null){
